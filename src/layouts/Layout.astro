@@ -1,0 +1,31 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+
+import Header from "../components/Header.astro";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+        <ViewTransitions />
+	</head>
+	<body>
+	    <Header />
+		<slot />
+        <footer class="flex justify-center my-10">
+            <p>Ejercicio con Astro - Data obtenida desde <a target="_blank" href="https://aves.ninjas.cl/">aves.ninjas.cl</a></p>
+        </footer>
+	</body>
+</html>

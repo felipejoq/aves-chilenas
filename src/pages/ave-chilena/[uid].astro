@@ -1,0 +1,30 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+import type {Birds} from "../../interfaces/Birds";
+import type {Bird} from "../../interfaces/Bird";
+
+export async function getStaticPaths() {
+    const response = await fetch('https://aves.ninjas.cl/api/birds');
+    const birds = await response.json() as Birds[];
+
+    return birds.map((bird) => ({
+        params: { uid: bird.uid }
+    }));
+}
+const { uid } = Astro.params;
+const response = await fetch(`https://aves.ninjas.cl/api/birds/${uid}`);
+const bird = await response.json() as Bird;
+---
+<Layout title="Aves Chilenas">
+    <header>
+        <h1>Aves Chilenas</h1>
+    </header>
+    <main>
+        <a href="/public">Volver</a>
+        <p>Nombre: {bird.name.spanish}</p>
+        <p>
+            <img title={bird.name.spanish} alt={bird.name.spanish} src={bird.images.main}/>
+        </p>
+    </main>
+</Layout>

@@ -1,0 +1,38 @@
+---
+import Feather from "./icons/Feather.astro";
+interface Props {
+    title?: string;
+}
+
+const { title = 'AVES CHILENAS' } = Astro.props;
+---
+<header>
+    <header class="bg-green-700 text-white shadow-lg">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6">
+            <div class="flex items-center">
+                <Feather height="30" width="30" />
+                <h1 class="text-2xl font-bold">Aves Chilenas</h1>
+            </div>
+            <div class="md:hidden">
+                <button onclick="toggleMenu()" class="flex items-center focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#" class="hover:text-gray-300">Inicio</a>
+            </nav>
+        </div>
+        <nav id="mobile-menu" class="hidden md:hidden bg-green-700 px-6 pb-4 flex-col items-center">
+            <a href="#" class="block py-2 hover:text-gray-300">Inicio</a>
+        </nav>
+    </header>
+</header>
+
+<script is:inline>
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    }
+</script>

@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from "../components/Card.astro";
+import type {Bird} from "../interfaces/Bird";
+
+// Fetch aves chilenas from the API
+const response = await fetch('https://aves.ninjas.cl/api/birds');
+const birds = await response.json() as Bird[];
+---
+
+<Layout title="Aves Chilenas">
+    <div class="mx-auto mt-8 w-full flex justify-center">
+        <main class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+            {
+                birds.map((bird) => (
+                        <Card bird={bird} />
+                ))
+            }
+        </main>
+    </div>
+</Layout>
