@@ -15,7 +15,7 @@ const {page} = Astro.props;
 ---
 
 <Layout title="Aves Chilenas">
-    <div class="mx-auto mt-8 w-full flex justify-center flex-col">
+    <div class="mx-auto mt-8 w-full flex justify-center flex-col px-5 2xl:w-10/12 max-w-10/12">
         <main class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {
                 page.data.map((bird: Bird) => (

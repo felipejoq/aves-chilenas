@@ -22,6 +22,8 @@ export interface Links {
 }
 
 export interface Audio {
+    author: string;
+    file:   string;
 }
 
 export interface Images {

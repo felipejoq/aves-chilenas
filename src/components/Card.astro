@@ -7,21 +7,12 @@ interface Props {
 const {bird} = Astro.props;
 ---
 
-<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-        <img transition:name={`ave-${bird.uid}`} class="w-full h-48 object-cover" src={bird.images.main} alt="Imagen de ejemplo">
+<div class="rounded overflow-hidden shadow-lg">
+    <div class="prose">
+        <img transition:name={`ave-${bird.uid}`} class="w-full" title={bird.name.spanish} alt={bird.name.spanish} src={bird.images.main} />
         <div class="px-6 py-4">
-            <h2 class="font-bold text-xl mb-2">
-                {bird.name.spanish}
-            </h2>
-            <h3>
-                ({bird.name.latin})
-            </h3>
-        </div>
-        <div class="px-6 py-4">
-            <a
-                    href={`/aves-chilenas/${bird.uid}`}
-                    class="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">
+            <div class="font-bold text-xl mb-2">{bird.name.spanish}</div>
+            <a href={`/aves-chilenas/${bird.uid}`} class="text-white bg-blue-500 hover:bg-blue-700 mt-4 inline-block py-2 px-4 rounded decoration-0 no-underline">
                 Ver más
             </a>
         </div>
