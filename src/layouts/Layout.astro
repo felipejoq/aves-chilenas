@@ -1,7 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 
-import Header from "../components/Header.astro";
+import Header from "../components/Header";
 
 interface Props {
 	title: string;
@@ -22,7 +22,7 @@ const { title } = Astro.props;
         <ViewTransitions />
 	</head>
 	<body>
-	    <Header />
+	    <Header client:load />
 		<slot />
         <footer class="flex justify-center my-10">
             <p>Ejercicio con Astro - Data obtenida desde <a target="_blank" href="https://aves.ninjas.cl/">aves.ninjas.cl</a></p>
