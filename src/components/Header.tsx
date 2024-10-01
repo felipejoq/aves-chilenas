@@ -4,7 +4,7 @@ interface Props {
     title?: string;
 }
 
-const Header: React.FC<Props> = ({ title = "Aves misteriosas de Chile" }) => {
+export const Header: React.FC<Props> = ({ title = "Aves misteriosas de Chile" }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -55,5 +55,3 @@ const Header: React.FC<Props> = ({ title = "Aves misteriosas de Chile" }) => {
         </nav>
     );
 };
-
-export default Header;
