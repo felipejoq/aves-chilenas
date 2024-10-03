@@ -1,18 +1,27 @@
 ---
-import type {Bird} from "@interfaces/Bird";
+import type { Bird } from "@interfaces/Bird";
 interface Props {
     bird: Bird;
 }
 
-const {bird} = Astro.props;
+const { bird } = Astro.props;
 ---
 
 <div class="rounded overflow-hidden shadow-lg">
     <div class="prose">
-        <img transition:name={`ave-${bird.uid}`} class="w-full" title={bird.name.spanish} alt={bird.name.spanish} src={bird.images.main} />
+        <img
+            transition:name={`ave-${bird.uid}`}
+            class="w-full"
+            title={bird.name.spanish}
+            alt={bird.name.spanish}
+            src={bird.images.main}
+        />
         <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">{bird.name.spanish}</div>
-            <a href={`/aves-chilenas/${bird.uid}`} class="text-white bg-blue-500 hover:bg-blue-700 mt-4 inline-block py-2 px-4 rounded decoration-0 no-underline">
+            <a
+                href={`/aves-chilenas/${bird.uid}`}
+                class="text-white bg-blue-500 hover:bg-blue-700 mt-4 inline-block py-2 px-4 rounded decoration-0 no-underline"
+            >
                 Ver más
             </a>
         </div>

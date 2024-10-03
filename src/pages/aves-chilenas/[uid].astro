@@ -1,56 +1,76 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import { Picture } from "astro:assets";
 
-import type {Birds} from "@interfaces/Birds";
-import type {Bird} from "@interfaces/Bird";
+import type { Birds } from "@interfaces/Birds";
+import type { Bird } from "@interfaces/Bird";
 
 export async function getStaticPaths() {
-    const response = await fetch('https://aves.ninjas.cl/api/birds');
-    const birds = await response.json() as Birds[];
+  const response = await fetch("https://aves.ninjas.cl/api/birds");
+  const birds = (await response.json()) as Birds[];
 
-    return birds.map((bird) => {
-        return {
-            params: { uid: bird.uid },
-            props: { selfLink: bird._links.self }
-        }
-    });
+  return birds.map((bird) => {
+    return {
+      params: { uid: bird.uid },
+      props: { selfLink: bird._links.self },
+    };
+  });
 }
 const { selfLink } = Astro.props;
 const response = await fetch(selfLink, {
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'User-Agent': 'Astro'
-    }
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    "User-Agent": "Astro",
+  },
 });
 
-const bird = await response.json() as Bird;
+const bird = (await response.json()) as Bird;
 ---
+
 <Layout title="Aves Chilenas">
-    <main class="flex justify-center items-center min-h-screen bg-gray-100">
-        <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white prose my-5">
-            <img transition:name={`ave-${bird.uid}`} class="w-full" title={bird.name.spanish} alt={bird.name.spanish} src={bird.images.main} />
-            <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-3">{bird.name.spanish}</div>
-                {
-                    bird.audio.file ? (
-                            <audio controls class="mt-4 w-full">
-                                <source src={bird.audio.file} type="audio/wav" />
-                                Tu navegador no soporta el elemento de audio.
-                            </audio>
-                    ) : <p class="text-gray-300 text-base mb-4">Sin audio disponible</p>
-                }
-                <p class="text-gray-700 text-base mb-4">{bird.habitat}</p>
-                <div class="text-sm text-gray-600">
-                    <p><strong>Nombre en inglés:</strong> {bird.name.english}</p>
-                    <p><strong>Nombre científico:</strong> {bird.name.latin}</p>
-                    <p><strong>Tamaño:</strong> {bird.size}</p>
-                    <p><strong>Orden:</strong> {bird.order}</p>
-                    <p><strong>Especie:</strong> {bird.species}</p>
-                    <p><strong>Dato curioso:</strong> {bird.didyouknow}</p>
-                </div>
-                <a href="javascript:history.back()" class="text-white bg-blue-500 hover:bg-blue-700 mt-4 inline-block py-2 px-4 rounded decoration-0 no-underline">Volver</a>
-            </div>
+  <main class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white prose my-5">
+      <Picture
+        width={384}
+        height={384}
+        inferSize={true}
+        src={bird.images.main}
+        alt={bird.name.spanish}
+        title={bird.name.spanish}
+        formats={['avif', 'webp']}
+        class="w-full"
+      />
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-3">{bird.name.spanish}</div>
+        {
+          bird.audio.file ? (
+            <audio controls class="mt-4 w-full">
+              <source src={bird.audio.file} type="audio/wav" />
+              Tu navegador no soporta el elemento de audio.
+            </audio>
+          ) : (
+            <p class="text-gray-300 text-base mb-4">Sin audio disponible</p>
+          )
+        }
+        <p class="text-gray-700 text-base mb-4">{bird.habitat}</p>
+        <div class="text-sm text-gray-600">
+          <p>
+            <strong>Nombre en inglés:</strong>
+            {bird.name.english}
+          </p>
+          <p><strong>Nombre científico:</strong> {bird.name.latin}</p>
+          <p><strong>Tamaño:</strong> {bird.size}</p>
+          <p><strong>Orden:</strong> {bird.order}</p>
+          <p><strong>Especie:</strong> {bird.species}</p>
+          <p><strong>Dato curioso:</strong> {bird.didyouknow}</p>
         </div>
-    </main>
+        <a
+          href="javascript:history.back()"
+          class="text-white bg-blue-500 hover:bg-blue-700 mt-4 inline-block py-2 px-4 rounded decoration-0 no-underline"
+          >Volver</a
+        >
+      </div>
+    </div>
+  </main>
 </Layout>
